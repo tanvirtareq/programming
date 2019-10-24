@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> v[1100];
+int vis[1100], match[1100], t, n, m, x, y;
+int MaxBpm(int tt)
+{
+	for(int i=0;i<v[tt].size();i++){
+		if(vis[v[tt][i]]) continue;
+		vis[v[tt][i]]=1;
+		if(match[v[tt][i]]==-1 || MaxBpm(match[v[tt][i]])){
+			match[v[tt][i]]=tt;
+            return 1;
+		}
+	}
+	return 0;
+}
+int main()
+{
+	cin>>t;
+	for(int in=1;in<=t;in++){
+		cin>>n>>m;
+		for(int i=1;i<=m;i++){
+			cin>>x>>y;
+			v[x].push_back(y);
+			v[y].push_back(x);
+		}
+		int ct=0;
+		memset(match, -1, sizeof match);
+		for(int i=1;i<=n;i++){
+			memset(vis, 0, sizeof vis);
+			ct+=MaxBpm(i);
+		}
+		cout<<"Case "<<in<<": "<<n-ct/2<<endl;
+		for(int i=0;i<1100;i++) v[i].clear();
+	}
+	return 0;
+}

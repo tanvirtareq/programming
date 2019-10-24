@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll md;
+struct Mat{
+	ll dt[5][5], m, n;
+	Mat operator *(Mat b){
+		Mat c;
+		c.m=m, c.n=b.n;
+		for(ll i=0;i<m;i++){
+			for(ll j=0;j<b.n;j++){
+				ll val =0;
+				for(ll k=0;k<n;k++) val=(val+dt[i][k]*b.dt[k][j])%md;
+				c.dt[i][j]=val;
+			}
+		}
+		return c;
+	}
+	Mat operator ^(ll p){
+		if(p==1) return *this;
+		Mat x;
+		x.m=m; x.n=n;
+		x=*this^(p/2);
+		Mat ret;
+        ret.n=n; ret.m=m;
+		ret=x*x;
+		if(p&1LL) ret=*this*ret;
+		return ret;
+	}
+};
+Mat base;
+int main()
+{
+	ll t;
+	scanf("%lld", &t);
+	base.m=2;   base.n=2;
+	base.dt[0][0]=1;    base.dt[0][1]=1;
+	base.dt[1][0]=1;    base.dt[1][1]=0;
+	for(int in=1;in<=t;in++){
+		ll a, b, n, m;
+		scanf("%lld%lld%lld%lld", &a, &b, &n, &m);
+		if(m==1) md=10;
+		if(m==2) md=100;
+		if(m==3) md=1000;
+		if(m==4) md=10000;
+		n--;
+		Mat x;
+		x.m=2;  x.n=2;
+		x=base^n;
+		printf("Case %d: %lld\n", in, (x.dt[0][0]*b+x.dt[0][1]*a)%md);
+	}
+	return 0;
+}

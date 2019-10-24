@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>D:\tareq\c programming\marathon contest 3 by shahriar vai\e.chimp.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="Code::Blocks Exporter plugin" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.style11 { color: #000000; background-color: #FFFFFF; }
+.style64 { color: #C8C8C8; }
+.style72 { color: #C8C8C8; }
+.style75 { color: #C8C8C8; }
+.style1 { color: #A0A0A0; }
+.style23 { color: #A0A0A0; }
+.style65 { color: #A0A0A0; }
+.style87 { color: #A0A0A0; }
+.style2 { color: #BEBEE6; }
+.style66 { color: #BEBEE6; }
+.style3 { color: #8080FF; font-weight: bold; }
+.style24 { color: #8080FF; font-weight: bold; }
+.style67 { color: #8080FF; font-weight: bold; }
+.style88 { color: #8080FF; font-weight: bold; }
+.style15 { color: #8080FF; font-weight: bold; }
+.style79 { color: #8080FF; font-weight: bold; }
+.style17 { color: #008080; }
+.style81 { color: #008080; }
+.style18 { color: #800000; }
+.style82 { color: #800000; }
+.style4 { color: #F000F0; }
+.style68 { color: #F0C8F0; }
+.style5 { color: #0000A0; font-weight: bold; }
+.style69 { color: #8787C8; font-weight: bold; }
+.style16 { color: #00A000; font-weight: bold; }
+.style80 { color: #9AC89A; font-weight: bold; }
+.style19 { color: #BE00BE; font-weight: bold; }
+.style83 { color: #BE89BE; font-weight: bold; }
+.style6 { color: #0000FF; }
+.style12 { color: #0000FF; }
+.style20 { color: #0000FF; }
+.style70 { color: #BEBEFF; }
+.style76 { color: #BEBEFF; }
+.style7 { color: #E0A000; }
+.style71 { color: #E0CE9F; }
+.style8 { color: #000000; }
+.style9 { color: #00A000; }
+.style73 { color: #84A084; }
+.style10 { color: #FF0000; }
+.style74 { color: #FFC8C8; }
+.style34 { color: #000000; background-color: #80FFFF; font-weight: bold; }
+.style35 { color: #FFFFFF; background-color: #FF0000; font-weight: bold; }
+.style50 { color: #404080; font-style: italic; }
+.style114 { color: #8585AC; font-style: italic; }
+--></style></head>
+<body>
+<pre>
+<code><span style="font: 8pt Courier New;"><span class="body"> 1 </span><span class="style9">#include&lt;bits/stdc++.h&gt;</span>
+<span class="body"> 2  </span>
+<span class="body"> 3  </span><span class="style5">using namespace </span><span class="style16">std</span><span class="style10">;</span>
+<span class="body"> 4  </span>
+<span class="body"> 5  </span><span class="style5">long long int </span><span class="style11">lwrb</span><span class="style10">, </span><span class="style11">uprb</span><span class="style10">, </span><span class="style11">target</span><span class="style10">;</span>
+<span class="body"> 6  </span>
+<span class="body"> 7  </span><span class="style5">bool </span><span class="style11">binary_searchf</span><span class="style10">(</span><span class="style16">vector</span><span class="style10">&lt;</span><span class="style5">long long int</span><span class="style10">&gt;</span><span class="style11">v</span><span class="style10">,</span><span class="style5">long long int </span><span class="style11">key</span><span class="style10">)</span>
+<span class="body"> 8  </span><span class="style10">{</span>
+<span class="body"> 9      </span><span class="style11">lwrb</span><span class="style10">=</span><span class="style4">0</span><span class="style10">;</span>
+<span class="body">10      </span><span class="style11">uprb</span><span class="style10">=</span><span class="style11">v</span><span class="style10">.</span><span class="style16">size</span><span class="style10">()-</span><span class="style4">1</span><span class="style10">;</span>
+<span class="body">11      </span><span class="style5">long long int </span><span class="style11">mid</span><span class="style10">;</span>
+<span class="body">12      </span><span class="style5">while</span><span class="style10">(</span><span class="style11">lwrb</span><span class="style10">&lt;=</span><span class="style11">uprb</span><span class="style10">)</span>
+<span class="body">13      </span><span class="style10">{</span>
+<span class="body">14          </span><span class="style11">mid</span><span class="style10">=(</span><span class="style11">lwrb</span><span class="style10">+</span><span class="style11">uprb</span><span class="style10">)/</span><span class="style4">2</span><span class="style10">;</span>
+<span class="body">15          </span><span class="style5">if</span><span class="style10">(</span><span class="style11">v</span><span class="style10">[</span><span class="style11">mid</span><span class="style10">]==</span><span class="style11">key</span><span class="style10">)</span>
+<span class="body">16          </span><span class="style10">{</span>
+<span class="body">17              </span><span class="style11">target</span><span class="style10">=</span><span class="style11">mid</span><span class="style10">;</span>
+<span class="body">18              </span><span class="style5">return true</span><span class="style10">;</span>
+<span class="body">19          </span><span class="style10">}</span>
+<span class="body">20          </span><span class="style5">else if</span><span class="style10">(</span><span class="style11">v</span><span class="style10">[</span><span class="style11">mid</span><span class="style10">]&gt;</span><span class="style11">key</span><span class="style10">)</span>
+<span class="body">21          </span><span class="style10">{</span>
+<span class="body">22              </span><span class="style11">uprb</span><span class="style10">=</span><span class="style11">mid</span><span class="style10">-</span><span class="style4">1</span><span class="style10">;</span>
+<span class="body">23          </span><span class="style10">}</span>
+<span class="body">24          else lwrb=mid+1;</span>
+<span class="body">25      }</span>
+<span class="body">26  </span>
+<span class="body">27      swap(lwrb, uprb);</span>
+<span class="body">28  </span>
+<span class="body">29      return false;</span>
+<span class="body">30  </span>
+<span class="body">31  }</span>
+<span class="body">32  </span>
+<span class="body">33  int main()</span>
+<span class="body">34  {</span>
+<span class="body">35      vector&lt;long long int&gt;v;</span>
+<span class="body">36  </span>
+<span class="body">37      long long int n, q;</span>
+<span class="body">38  </span>
+<span class="body">39      cin&gt;&gt;n;</span>
+<span class="body">40      while(n--)</span>
+<span class="body">41      {</span>
+<span class="body">42          long long int x;</span>
+<span class="body">43          cin&gt;&gt;x;</span>
+<span class="body">44          v.push_back(x);</span>
+<span class="body">45  </span>
+<span class="body">46      }</span>
+<span class="body">47      cin&gt;&gt;q;</span>
+<span class="body">48      while(q--)</span>
+<span class="body">49      {</span>
+<span class="body">50          long long int k, s, t;</span>
+<span class="body">51          cin&gt;&gt;k;</span>
+<span class="body">52          if(binary_searchf(v, k))</span>
+<span class="body">53          {</span>
+<span class="body">54              long long int x=target;</span>
+<span class="body">55              while(1)</span>
+<span class="body">56              {</span>
+<span class="body">57                  target--;</span>
+<span class="body">58                  if(target&lt;0) break;</span>
+<span class="body">59                  else</span>
+<span class="body">60                  if(v[target]!=k) break;</span>
+<span class="body">61              }</span>
+<span class="body">62              s=target;</span>
+<span class="body">63  </span>
+<span class="body">64              target=x;</span>
+<span class="body">65              while(1)</span>
+<span class="body">66              {</span>
+<span class="body">67                  target++;</span>
+<span class="body">68                  if(target==v.size()) break;</span>
+<span class="body">69                  else</span>
+<span class="body">70                  if(v[target]!=k) break;</span>
+<span class="body">71              }</span>
+<span class="body">72              t=target;</span>
+<span class="body">73          }</span>
+<span class="body">74          else</span>
+<span class="body">75          {</span>
+<span class="body">76              s=lwrb;</span>
+<span class="body">77              t=uprb;</span>
+<span class="body">78          }</span>
+<span class="body">79          if(s&gt;=0&amp;&amp;t&lt;v.size()) cout&lt;&lt;v[s]&lt;&lt;" "&lt;&lt;v[t]&lt;&lt;endl;</span>
+<span class="body">80          else if(s&lt;0&amp;&amp;t&lt;v.size()) cout&lt;&lt;"X "&lt;&lt;v[t]&lt;&lt;endl;</span>
+<span class="body">81          else if(s&gt;=0&amp;&amp;t&gt;=v.size()) cout&lt;&lt;v[s]&lt;&lt;" X"&lt;&lt;endl;</span>
+<span class="body">82          else cout&lt;&lt;"X X"&lt;&lt;endl;</span>
+<span class="body">83  </span>
+<span class="body">84      }</span>
+<span class="body">85  </span>
+<span class="body">86      return 0;</span>
+<span class="body">87  }</span></span>
+</code></pre>
+</body>
+</html>
