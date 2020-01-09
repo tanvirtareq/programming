@@ -35,7 +35,7 @@ void suffix_array_DA(int n, int m)
         for(i=0;i<n;i++)
             if(sa[i]>=1)
                 j[j++]=sa[i]-1;
-
+        for(i=0;)
     }
 }
 
