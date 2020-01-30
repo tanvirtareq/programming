@@ -1,16 +1,17 @@
 #include<bits/stdc++.h>
 #define ll long long
+#define dbg(a) cout<<#a<<"= "<<a<<endl;
 
 using namespace std;
-ll ar[1000000];
+ll ar[1000000], f[10000000], s1[10000000];
 vector<ll> v;
 
 int main()
 {
     ll n;
     cin>>n;
-    ll s=0;
-    for(ll i=1;i<=n;i++) cin>>ar[i], s+=ar[i];
+    for(ll i=1;i<=n;i++) cin>>ar[i], s1[i]=s1[i-1]+ar[i];
+    ll s=s1[n];
     if(s%3!=0)
     {
         cout<<0<<endl;
@@ -18,77 +19,28 @@ int main()
     }
     s=s/3;
     ll ct=0;
-    ll f=0;
-    for(ll i=1;i<=n;i++)
+//    ll ct=ar[1];
+//    f[1]=0;
+
+    for(int i=1;i<=n;i++)
     {
-        if(f)
-        {
-            v.push_back(ar[i]);
-            continue;
-        }
         ct+=ar[i];
-        if(ct==s)
-        {
-            f=1;
-        }
+        if(s1[i]==s) f[i]=1+f[i-1];
+        else f[i]=f[i-1];
     }
+    ll ans=0;
     ct=0;
-
-    while(v.size())
+    for(int i=n;i>1;i--)
     {
-        ct+=v.back();
-        if(ct==s)
+        ct+=ar[i];
+        if(s1[i]==2*s)
         {
-            v.pop_back();
-            break;
-        }
-        v.pop_back();
-    }
-
-    if(v.size()==0)
-    {
-        cout<<0<<endl;
-        return 0;
-    }
-
-    ll k=v.size()-1;
-    ct=0;
-    for(ll i=k;i>0;i--)
-    {
-        ct+=v[i];
-        if(s==ct)
-        {
-            k=i;
-            break;
+            ans+=f[i-1];
         }
     }
-    ll x=1, y=1;
-    ll l=INT_MAX;
-
-    ct=0;
-    for(ll i=0;i<k;i++)
-    {
-        ct+=v[i];
-        if(ct==s)
-        {
-            l=min(l, i);
-        }
-        if(ct==0)
-        {
-            x++;
-        }
-    }
-
-    ct=0;
-
-    for(ll i=v.size()-1;i>l;i--)
-    {
-        ct+=v[i];
-        if(ct==0) y++;
-    }
-
-    cout<<x*y<<endl;
+    if(s!=0)
+    cout<<ans<<endl;
+    else cout<<(f[n]-2)*(f[n]-1)/2<<endl;
 
     return 0;
 }
-
