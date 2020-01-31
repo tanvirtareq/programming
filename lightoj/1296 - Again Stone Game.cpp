@@ -18,7 +18,7 @@ int main()
     memset(g, -1, sizeof g);
     for(int i=0;i<100;i++)
     {
-        if(i%2)
+//        if(i%2)
         cout<<i<<" "<<grn(i)<<endl;
     }
 //    for(int in=1;in<=t;in++)
