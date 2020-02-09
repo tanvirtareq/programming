@@ -53,26 +53,39 @@ pair<ll, ll> chinese_remainder_theorem( vector<ll> &A, vector<ll> &M )
     return {a1, m1};
 }
 
+struct p{
+    int a, b, c, d;
+};
+
 
 int main()
 {
-    ll t;
-    cin>>t;
-    for(ll k=1; k<=t; k++)
+
+    p ar[10];
+    memset(ar, -1 , sizeof ar);
+
+    for(int i=0;i<10;i++)
     {
-        ll n=2;
-        vector<ll> p(n), r(n);
-        for(ll i=0; i<n; i++)
-        {
-            cin>>r[i]>>p[i];
-        }
-        pair<ll, ll> pa=chinese_remainder_theorem(r, p);
-        if(pa.first==-1 and pa.second==-1)
-            cout<<"no solution"<<endl;
-        else
-            cout<<pa.first<<" "<<pa.second<<endl;
+        cout<<ar[i].a<<" "<<ar[i].b<<" "<<ar[i].c<<" "<<ar[i].d<<endl;
     }
-    return 0;
+
+//    ll t;
+//    cin>>t;
+//    for(ll k=1; k<=t; k++)
+//    {
+//        ll n=2;
+//        vector<ll> p(n), r(n);
+//        for(ll i=0; i<n; i++)
+//        {
+//            cin>>r[i]>>p[i];
+//        }
+//        pair<ll, ll> pa=chinese_remainder_theorem(r, p);
+//        if(pa.first==-1 and pa.second==-1)
+//            cout<<"no solution"<<endl;
+//        else
+//            cout<<pa.first<<" "<<pa.second<<endl;
+//    }
+//    return 0;
 }
 
 
