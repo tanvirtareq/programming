@@ -53,9 +53,11 @@ pair<ll, ll> chinese_remainder_theorem( vector<ll> &A, vector<ll> &M )
     return {a1, m1};
 }
 
-
 int main()
 {
+
+
+
     ll t;
     cin>>t;
     for(ll k=1; k<=t; k++)

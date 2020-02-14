@@ -1,14 +1,10 @@
 #include<bits/stdc++.h>
+#define ll long long
+#define dbg(x) cout<<#x<<" = "<<x<<endl
 
 using namespace std;
 
 int main()
 {
-	freopen("output.txt", "w", stdout);
-
-    for(int i=1;i<=10000;i++)
-    {
-        cout<<"012";
-    }
 
 }

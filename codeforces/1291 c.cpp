@@ -50,16 +50,13 @@ int main()
            for(ll i=1;i<=x;i++)
            {
                mx=max(mx, ar[i]);
-//               dbg(mx);
            }
            cout<<mx<<endl;
        }
 
        else
        {
-//           int drkrk=n-k;
-//           int drkrm=n-m+1;
-//           cout<<drkrk<<" "<<drkrm<<endl;
+
             ll isuru=1, ises=n-k;
             ll drkr=n-m;
            for(;ises<=n;isuru++, ises++)
@@ -67,55 +64,16 @@ int main()
                ll jsuru=isuru, jses=jsuru+drkr;
                ll flt=INT_MAX;
                ll f=0;
-//               dbg(isuru);
-//               dbg(ises);
+
                for(;jses<=ises;jsuru++, jses++)
                {
                    flt=min(flt, max(ar[jsuru], ar[jses]));
                    f=1;
-//                   dbg(jsuru);
-//                   dbg(jses);
-//                   dbg(flt);
-
                }
                if(f) ans=max(flt, ans);
-
            }
-
            cout<<ans<<endl;
        }
-
-//       else
-//       {
-////           ll bakim=m-k-1;
-//           ll drkrk=n-k;
-//           for(ll i=0;i<=k;i++)
-//           {
-//               ll flt=ll_MAX;
-//               ll sesk=i+drkrk;
-//
-//               for(ll j=0;j<=m-1;j++)
-//               {
-//                   ll drkr=n-m+1;
-//                   ll suru=i+j+1;
-//                   ll ses=i+drkr;
-//                   flt=min(flt, max(ar[suru], ar[ses]));
-//
-//               }
-//               ans =max(ans, flt);
-////               ll suru=i+1;
-////               ll ses=i+drkr;
-////               cout<<i<<" "<<suru<<" "<<ses<<endl;
-////               ll p=query(1, 1, n, suru, suru+bakim-1);
-////               ll q=query(1, 1, n, ses-bakim+1 ,ses);
-////               cout<<p<<" "<<q<<endl;
-////               ans=max(ans, max(p, q));
-////               cout<<i<<" "<<ans<<endl;
-//           }
-//           cout<<ans<<endl;
-//
-//       }
-
 
     }
 
