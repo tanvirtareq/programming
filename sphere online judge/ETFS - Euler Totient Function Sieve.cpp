@@ -20,6 +20,8 @@ ll totient(ll n)
     return result;
 }
 
+#define MX 10000000
+
 int lp[MX + 10];
 int phi[MX + 10];
 vector<int> pr;
