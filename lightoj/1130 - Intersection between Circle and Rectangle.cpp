@@ -36,6 +36,22 @@ struct PT
     }
 };
 
+double Q_rsqrt( double number ){
+   int i;
+   double x2, y;
+   const double threehalfs = 1.5F;
+
+   x2 = number * 0.5F;
+   y   = number;
+   i   = * ( int * ) &y;   // evil floating point bit level hacking
+   i   = 0x5f3759df - ( i >> 1 ); // what the fuck?
+   y   = * ( double * ) &i;
+   y   = y * ( threehalfs - ( x2 * y * y ) ); // 1st iteration
+   y   = y * ( threehalfs - ( x2 * y * y ) ); // 2nd iteration, this can be removed
+
+   return y;
+}
+
 long double dot(PT p, PT q)
 {
     return p.x*q.x+p.y*q.y;
@@ -65,7 +81,7 @@ long double clamp(long double a, long double l, long double r)
 
 long double angle(PT v, PT w)
 {
-    return acos(clamp(dot(v,w) / abs(v) / abs(w), -1.0, 1.0));
+    return acos(clamp(dot(v,w)/Q_rsqrt(dot(v, v)*dot(w, w)), -1.0, 1.0));
 }
 
 vector<PT> CircleLineIntersection(PT a, PT b, PT c, long double r)

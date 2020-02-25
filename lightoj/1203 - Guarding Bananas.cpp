@@ -7,258 +7,121 @@
 
 using namespace std;
 
-typedef long long int li;
+typedef long long ll;
 
 #define isEqual(a, b) ((a.x==b.x and a.y==b.y)?1:0)
 #define distsq(a, b) ((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y))
 
-struct point{
-li x, y;
+struct pt
+{
+    ll x, y;
+    pt operator - (pt a)
+    {
+        return {x-a.x, y-a.y};
+    }
 };
-
-li orientation(point a, point b, point c)
+ll dot(pt a, pt b)
 {
-    li f=(a.x-b.x)*(a.y-c.y)-(a.y-b.y)*(a.x-c.x);
-
-    if(f==0) return 0;
-
-    if(f<0) return 2;
-
-    return 1;
-
+    return a.x*b.x+a.y*b.y;
+}
+bool cmp(pt a, pt b)
+{
+    return a.x < b.x || (a.x == b.x && a.y < b.y);
+}
+bool cw(pt a, pt b, pt c)
+{
+    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) < 0;
+}
+bool ccw(pt a, pt b, pt c)
+{
+    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
 }
 
-bool isMdl(point a, point b, point m)
+vector<pt> convex_hull(vector<pt> &a)
 {
-    if(m.x<=max(a.x, b.x) and m.x>=min(a.x, b.x) and m.y<=max(a.y, b.y) and m.y>=min(a.y, b.y)) return 1;
+    if (a.size() == 1)
+        return a;
 
-    else return 0;
-
-}
-
-bool isIntersect(point a1, point a2, point b1, point b2)
-{
-
-
-
-    if(isEqual(a1, a2) and isEqual(b1, b2 ))
+    sort(a.begin(), a.end(), &cmp);
+    pt p1 = a[0], p2 = a.back();
+    vector<pt> up, down;
+    up.push_back(p1);
+    down.push_back(p1);
+    for (int i = 1; i < (int)a.size(); i++)
     {
-        if(isEqual(a1, b1))
+        if (i == a.size() - 1 || cw(p1, a[i], p2))
         {
-            return 1;
+            while (up.size() >= 2 && !cw(up[up.size()-2], up[up.size()-1], a[i]))
+                up.pop_back();
+            up.push_back(a[i]);
         }
-
-        return 0;
+        if (i == a.size() - 1 || ccw(p1, a[i], p2))
+        {
+            while(down.size() >= 2 && !ccw(down[down.size()-2], down[down.size()-1], a[i]))
+                down.pop_back();
+            down.push_back(a[i]);
+        }
     }
 
-    if(isEqual(a1, a2))
-    {
-        if(isMdl(b1, b2, a1)) return 1;
-        return 0;
-    }
+    a.clear();
+    for (int i = 0; i < (int)up.size(); i++)
+        a.push_back(up[i]);
+    for (int i = down.size() - 2; i > 0; i--)
+        a.push_back(down[i]);
 
-    if(isEqual(b1, b2))
-    {
-        if(isMdl(a1, a2, b1)) return 1;
-        return 0;
-    }
-
-    if(isEqual(a1, b1)) return 1;
-    if(isEqual(a1, b2)) return 1;
-    if(isEqual(a2, b2)) return 1;
-    if(isEqual(a2, b1)) return 1;
-
-    li Oa1a2b1=orientation(a1, a2, b1);
-    li Oa1a2b2=orientation(a1, a2, b2);
-    li Ob1b2a2=orientation(b1, b2, a2);
-    li Ob1b2a1=orientation(b1, b2, a1);
-
-    if(Oa1a2b1==0 and Oa1a2b2==0 and Ob1b2a1==0 and Ob1b2a2==0)
-    {
-        if(isMdl(a1, a2, b1) or isMdl(a1, a2, b2)) return 1;
-        if(isMdl(b1, b2 , a1) or isMdl(b1, b2 , a2)) return 1;
-
-        return 0;
-
-    }
-
-    if(Oa1a2b1!=Oa1a2b2 and Ob1b2a2!=Ob1b2a1)
-        return 1;
-
-    return 0;
-
+    return a;
 }
 
-void swap(point *a, point *b)
+double angle(pt a, pt b, pt c )
 {
-    point temp;
-
-    temp.x=a->x;
-    temp.y=a->y;
-
-    a->x=b->x;
-    a->y=b->y;
-
-    b->x=temp.x;
-    b->y=temp.y;
-
-    return;
+    ll dt=dot(a-b,  c-b);
+    ll fc=dot(a-b, a-b)*dot(c-b, c-b);
+    return (double)dt/sqrt((double)fc);
 }
-
-point ar[10010];
-
-bool cmp(point a, point b)
-{
-    if(orientation(ar[0], a, b)==1) return true;
-
-    if(orientation(ar[0], a, b)==0 and distsq(ar[0], a)>distsq(ar[0], b)) return true;
-
-    else return false;
-
-}
-
-    stack<point> st;
-point nextToTop()
-{
-    point ret=st.top();
-    st.pop();
-    point r=st.top();
-
-    st.push(ret);
-
-    return r;
-
-}
-
-
 
 int main()
 {
-    int t;
-    sci(t);
-
-    for(int i=1;i<=t;i++)
+    ll t;
+    cin>>t;
+    for(int in=1; in<=t; in++)
     {
-        clr(ar);
-
-        int n;
-
-        sci(n);
-
+        ll n;
+        cin>>n;
+        vector<pt> p;
+        for(int i=0;i<n;i++)
+        {
+            ll x, y;
+            cin>>x>>y;
+            p.push_back({x, y});
+//            cout<<it.x<<" "<<it.y<<endl;
+        }
         if(n<3)
         {
-            printf("Case %d: 0\n", i);
-
+            printf("Case %d: 0\n", in);
             continue;
         }
 
-        inp(ar[0]);
 
-        int mn=0;
-
-        for(int j=1;j<n;j++)
+        for(int i=0;i<p.size();i++)
         {
-            inp(ar[i]);
-
-            if(ar[i].x<ar[mn].x) mn=i;
-
-            else if(ar[i].y==ar[mn].y and ar[i].x<ar[mn].x)
-            mn=i;
-
+            cout<<p[i].x<<" "<<p[i].y<<endl;
         }
-
-        point temp=ar[mn];
-        ar[mn]=ar[0];
-        ar[0]=temp;
-
-        sort(ar+1, ar+n, cmp);
-
-        for(int i=0;i<n;i++)
+        p=convex_hull(p);
+//        for(int i=0;i<p.size();i++)
+//        {
+//            cout<<p[i].x<<" "<<p[i].y<<endl;
+//        }
+        double mnans=1e9;
+        for(int i=0; i<n; i++)
         {
-            out(ar[i]);
+            cout<<p[i].x<<" "<<p[i].y<<endl;
+            mnans=min(mnans, angle(p[(i-1+n)%n], p[i], p[(i+1)%n]));
         }
-
-        int m=1;
-
-        for(int i=2;i<n;)
-        {
-//        out(ar[0])
-
-//        cout<<orientation(ar[0], ar[i], ar[m])<<endl;
-
-            while(orientation(ar[0], ar[i], ar[m])==0)
-            {
-                i++;
-//            cout<<i<<endl;
-            }
-
-//        cout<<i<<endl;
-            ar[++m]=ar[i];
-            i++;
-        }
-
-        st.push(ar[0]);
-        st.push(ar[1]);
-
-        for(int i=2;i<=m;i++)
-        {
-            while(orientation(nextToTop(), st.top(), ar[i])==2)
-            {
-                st.pop();
-            }
-            st.push(ar[i]);
-        }
-
-        point lst=st.top();
-        st.pop();
-
-        point pvlst=st.top();
-        st.pop();
-        point x=st.top();
-        st.pop();
-
-        point a=lst;
-        point b=pvlst;
-        point c=x;
-
-        double mnans=acos((double)((c.x-b.x)*(a.x-b.x)+(c.y-b.y)*(a.y-b.y))/(double)sqrt(distsq(b, c)*distsq(a,b)));
-
-        while(!st.empty())
-        {
-            a=b;
-            b=c;
-            c=st.top();
-
-            st.pop();
-
-            double mntmp=acos((double)((c.x-b.x)*(a.x-b.x)+(c.y-b.y)*(a.y-b.y))/(double)sqrt(distsq(b, c)*distsq(a,b)));
-
-            mnans=min(mntmp, mnans);
-        }
-
-        a=b;
-        b=c;
-        c=lst;
-
-        double mntmp=acos((double)((c.x-b.x)*(a.x-b.x)+(c.y-b.y)*(a.y-b.y))/(double)sqrt(distsq(b, c)*distsq(a,b)));
-
-        mnans=min(mntmp, mnans);
-
-        a=b;
-        b=c;
-        c=pvlst;
-
-        mntmp=acos((double)((c.x-b.x)*(a.x-b.x)+(c.y-b.y)*(a.y-b.y))/(double)sqrt(distsq(b, c)*distsq(a,b)));
-
-        mnans=min(mntmp, mnans);
-
-        printf("Case %d: %.6lf\n", i, mnans);
-
-
+        printf("Case %d: %.6lf\n", in, mnans);
     }
 
 
-	return 0;
+    return 0;
 }
 
 
