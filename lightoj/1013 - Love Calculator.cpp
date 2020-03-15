@@ -34,12 +34,6 @@ int main()
 
 	// ios_base::sync_with_stdio(0);
 	// cin.tie(0);
-
-	#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	#endif
-
 	ll t;
 	scanf("%lld", &t);
 	f(in,1, t)
@@ -47,7 +41,7 @@ int main()
 		cin>>a>>b;
 		memset(dp,  -1, sizeof dp);
 		memset(dp1,  -1, sizeof dp1);
-		printf("Case %d: ", in);
+		printf("Case %lld: ", in);
 		printf("%lld ", l=a.size()+b.size()-lcs(0, 0));
 		printf("%lld\n", rc(0, 0, 0));
 	}

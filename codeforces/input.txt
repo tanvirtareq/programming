@@ -1,2 +1,2 @@
-20
-)))aaa(R(RaR))R(R(a)))RRaLaa)LRa
+10
+3 9 5 5 1 7 5 3 8 7

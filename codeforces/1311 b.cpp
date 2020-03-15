@@ -37,6 +37,15 @@ int cmp(pair<ll, ll> p, pair<ll, ll> q)
 
 }
 
+int sort(int st, int ed)
+{
+    if(ed-st==1)
+    {
+        if()
+    }
+
+}
+
 int main()
 {
 

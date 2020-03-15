@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 
-ll dpt[80000][17][20];
+ll dpt[1<<17][20];
 
 ll power(ll b, ll p, ll md)
 {
@@ -26,30 +26,24 @@ ll val(char ch)
 ll base, k;
  string s;
 
-ll dpf(ll dg, ll pos, ll md)
+ll dpf(ll dg,ll md)
 {
-    md%=k;
+    ll pos=__builtin_popcount(dg);
     if(pos==s.size())
     {
-        if(md==0) return 1;
-        return 0;
+        return (md==0);
     }
+    if(dpt[dg][md]!=-1)
+        return dpt[dg][md];
 
-    if(dpt[dg][pos][md]!=-1) return dpt[dg][pos][md];
-
-    ll pw=power(base, pos, k);
     ll ans=0;
 
     for(ll i=0;i<s.size();i++)
     {
         if(dg&(1<<i)) continue;
-        dg^=(1<<i);
-        ans=(ans+dpf(dg, pos+1, (md+(pw*val(i))%k)%k));
-        dg^=(1<<i);
+        ans=ans+dpf(dg|(1<<i), (md*base+val(i))%k);
     }
-//    cout<<pos<<" "<<ans<<endl;
-
-    return dpt[dg][pos][md]=ans;
+    return dpt[dg][md]=ans;
 }
 
 int main()
@@ -65,7 +59,7 @@ int main()
         scanf("%lld%lld", &base,&k);
 
         cin>>s;
-        printf("Case %lld: %lld\n", in, dpf(0, 0,0));
+        printf("Case %lld: %lld\n", in, dpf(0, 0));
 
     }
 
